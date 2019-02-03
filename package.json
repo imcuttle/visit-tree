@@ -1,5 +1,8 @@
 {
-  "name": "visit-tree",
+  "name": "@moyuyc/visit-tree",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "description": "Visit tree by pre or post DFS",

@@ -1,9 +1,9 @@
-# visit-tree
+# @moyuyc/visit-tree
 
 [![Build status](https://img.shields.io/travis/imcuttle/visit-tree/master.svg?style=flat-square)](https://travis-ci.org/imcuttle/visit-tree)
 [![Test coverage](https://img.shields.io/codecov/c/github/imcuttle/visit-tree.svg?style=flat-square)](https://codecov.io/github/imcuttle/visit-tree?branch=master)
-[![NPM version](https://img.shields.io/npm/v/visit-tree.svg?style=flat-square)](https://www.npmjs.com/package/visit-tree)
-[![NPM Downloads](https://img.shields.io/npm/dm/visit-tree.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/visit-tree)
+[![NPM version](https://img.shields.io/npm/v/@moyuyc/visit-tree.svg?style=flat-square)](https://www.npmjs.com/package/@moyuyc/visit-tree)
+[![NPM Downloads](https://img.shields.io/npm/dm/@moyuyc/visit-tree.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/@moyuyc/visit-tree)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://prettier.io/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square)](https://conventionalcommits.org)
 
@@ -12,15 +12,15 @@
 ## Installation
 
 ```bash
-npm install visit-tree
+npm install @moyuyc/visit-tree
 # or use yarn
-yarn add visit-tree
+yarn add @moyuyc/visit-tree
 ```
 
 ## Usage
 
 ```javascript
-const visitTree = require('visit-tree')
+const visitTree = require('@moyuyc/visit-tree')
 
 visitTree(
   {
