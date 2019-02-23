@@ -104,7 +104,7 @@ function walkNodeInner(node, walk, ctx, options = {}) {
     }
   }
 
-  const nodes = castArray(node[path] || []).slice()
+  const nodes = [].slice.apply(castArray(node[path] || []))
   let i = 0
   while (nodes.length) {
     const childNode = nodes.shift()
