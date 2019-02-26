@@ -38,16 +38,11 @@ visitTree(
 
 ## API
 
-### **`visitTree(tree, visitor: (node, ctx: Context) => void, options: Options)`**
+### **`visitTree(tree, preWalk: (node, ctx: Context) => void, options: Options)`**
+
+### **`visitTree(tree, preWalk: (node, ctx: Context) => void, postWalk: (node, ctx: Context) => void, options: Options)`**
 
 ### Options
-
-#### `order`
-
-Assign visiting order rule.
-
-- **Type:** `pre` | `post`
-- **Default:** `pre`
 
 #### `path`
 
