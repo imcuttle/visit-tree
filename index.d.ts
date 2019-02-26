@@ -24,7 +24,6 @@ declare namespace visitTree {
   }
 
   export interface IOptions {
-    order?: 'pre' | 'post'
     path?: string
     state?: any
   }
@@ -32,6 +31,13 @@ declare namespace visitTree {
   export type IVisit<T> = (node: T, ctx: IContext<T>) => void
 }
 
-declare function visitTree<T>(node: any, visit: visitTree.IVisit<T>, options: visitTree.IOptions): void
+declare function visitTree<T>(
+  node: any,
+  preVisit: visitTree.IVisit<T>,
+  postVisit?: visitTree.IVisit<T>,
+  options?: visitTree.IOptions
+): void
+
+declare function visitTree<T>(node: any, preVisit: visitTree.IVisit<T>, options?: visitTree.IOptions): void
 
 export = visitTree

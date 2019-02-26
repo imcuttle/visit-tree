@@ -32,8 +32,8 @@ function getParents(srcCtx) {
   return parents
 }
 
-function walkNodeInner(node, walk, ctx, options = {}) {
-  const { path = 'children', order = 'pre', state } = options
+function walkNodeInner(node, preWalk, postWalk, ctx, options = {}) {
+  const { path = 'children', state } = options
   let status
   ctx = Object.assign(
     {
@@ -97,11 +97,9 @@ function walkNodeInner(node, walk, ctx, options = {}) {
     return
   }
 
-  if (order === 'pre') {
-    walk(node, ctx)
-    if (status) {
-      return status
-    }
+  preWalk(node, ctx)
+  if (status) {
+    return status
   }
 
   const nodes = [].slice.apply(castArray(node[path] || []))
@@ -110,7 +108,8 @@ function walkNodeInner(node, walk, ctx, options = {}) {
     const childNode = nodes.shift()
     let returnStatus = walkNodeInner(
       childNode,
-      walk,
+      preWalk,
+      postWalk,
       {
         ...ctx,
         index: i,
@@ -126,16 +125,20 @@ function walkNodeInner(node, walk, ctx, options = {}) {
     i++
   }
 
-  if (order === 'post') {
-    walk(node, ctx)
-    if (status) {
-      return status
-    }
+  postWalk(node, ctx)
+  if (status) {
+    return status
   }
 }
 
-function walkTree(node, walk, options) {
-  walkNodeInner(node, walk, null, options)
+const noop = () => {}
+function walkTree(node, preWalk, postWalk, options) {
+  if (typeof postWalk !== 'function') {
+    options = postWalk
+    postWalk = noop
+  }
+
+  walkNodeInner(node, preWalk || noop, postWalk || noop, null, options)
 }
 
 module.exports = walkTree

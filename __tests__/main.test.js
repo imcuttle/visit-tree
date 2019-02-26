@@ -48,17 +48,44 @@ describe('walkTree', function() {
           ]
         }
       },
+      null,
       (node, ctx) => {
         list.push(node.key)
         pathsList.push(ctx.paths)
-      },
-      {
-        order: 'post'
       }
     )
 
     expect(list).toEqual(['root', 'a', 'b'].reverse())
     expect(pathsList).toEqual([[0, 0], [0], []])
+  })
+
+  it('should walk pre & post well', function() {
+    const list = []
+    const pathsList = []
+    walk(
+      {
+        key: 'root',
+        children: {
+          key: 'a',
+          children: [
+            {
+              key: 'b'
+            }
+          ]
+        }
+      },
+      (node, ctx) => {
+        list.push(node.key)
+        pathsList.push(ctx.paths)
+      },
+      (node, ctx) => {
+        list.push(node.key)
+        pathsList.push(ctx.paths)
+      }
+    )
+
+    expect(list).toEqual(['root', 'a', 'b', 'b', 'a', 'root'])
+    expect(pathsList).toEqual([[], [0], [0, 0], [0, 0], [0], []])
   })
 
   it('should walk skip/remove well', function() {
