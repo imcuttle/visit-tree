@@ -1,3 +1,18 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/imcuttle/visit-tree/compare/v1.0.2...v2.0.0) (2019-02-26)
+
+
+### Features
+
+* api changes to `visit(tree, pre, post?, options?)` ([9b41e4e](https://github.com/imcuttle/visit-tree/commit/9b41e4e)), closes [#1](https://github.com/imcuttle/visit-tree/issues/1)
+
+
+### BREAKING CHANGES
+
+* remove the option `order`
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/imcuttle/visit-tree/compare/v1.0.1...v1.0.2) (2019-02-23)
 
