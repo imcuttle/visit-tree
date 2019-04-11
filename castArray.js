@@ -4,15 +4,16 @@
  * @date 03/02/2019
  *
  */
-
-const specTypes = [global.NodeList].filter(Boolean)
+const isIterable = require('is-iterable')
 
 module.exports = function(input) {
   if (input && typeof input.slice === 'function') {
     return input
   }
-  if (input && specTypes.some(type => input instanceof type)) {
+
+  if (isIterable(input)) {
     return [].slice.apply(input)
   }
+
   return [input]
 }
