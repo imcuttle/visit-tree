@@ -1,3 +1,13 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/imcuttle/visit-tree/compare/v2.0.0...v2.0.1) (2019-04-11)
+
+
+### Bug Fixes
+
+* update cast array ([92b0b57](https://github.com/imcuttle/visit-tree/commit/92b0b57))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/imcuttle/visit-tree/compare/v1.0.2...v2.0.0) (2019-02-26)
 
