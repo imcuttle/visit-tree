@@ -10,6 +10,7 @@ declare namespace visitTree {
     parent: T | null
     parentCtx: IContext<T> | null
     parents: T[]
+    readonly children: T[]
     paths: number[]
     state: any
     node: T

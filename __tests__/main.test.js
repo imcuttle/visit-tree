@@ -62,6 +62,7 @@ describe('walkTree', function() {
   it('should walk pre & post well', function() {
     const list = []
     const pathsList = []
+    const parents = []
     walk(
       {
         key: 'root',
@@ -77,15 +78,37 @@ describe('walkTree', function() {
       (node, ctx) => {
         list.push(node.key)
         pathsList.push(ctx.paths)
+        parents.push(ctx.parents)
       },
       (node, ctx) => {
         list.push(node.key)
         pathsList.push(ctx.paths)
+        parents.push(ctx.parents)
       }
     )
 
     expect(list).toEqual(['root', 'a', 'b', 'b', 'a', 'root'])
     expect(pathsList).toEqual([[], [0], [0, 0], [0, 0], [0], []])
+    expect(parents.map(parents => parents.map(node => node.key))).toMatchInlineSnapshot(`
+Array [
+  Array [],
+  Array [
+    "root",
+  ],
+  Array [
+    "root",
+    "a",
+  ],
+  Array [
+    "root",
+    "a",
+  ],
+  Array [
+    "root",
+  ],
+  Array [],
+]
+`)
   })
 
   it('should walk skip/remove well', function() {

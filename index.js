@@ -4,8 +4,9 @@
  */
 
 const castArray = require('./castArray')
+const Context = require('./context')
 
-function walkCtx(ctx, walk) {
+function walkParentCtx(ctx, walk) {
   while (ctx) {
     walk(ctx)
     ctx = ctx.parentCtx
@@ -14,7 +15,7 @@ function walkCtx(ctx, walk) {
 
 function getPaths(srcCtx) {
   const paths = []
-  walkCtx(srcCtx, ctx => {
+  walkParentCtx(srcCtx, ctx => {
     if (ctx.parent) {
       paths.unshift(ctx.index)
     }
@@ -24,7 +25,7 @@ function getPaths(srcCtx) {
 
 function getParents(srcCtx) {
   const parents = []
-  walkCtx(srcCtx, ctx => {
+  walkParentCtx(srcCtx, ctx => {
     if (ctx.parent) {
       parents.unshift(ctx.parent)
     }
@@ -34,75 +35,45 @@ function getParents(srcCtx) {
 
 function walkNodeInner(node, preWalk, postWalk, ctx, options = {}) {
   const { path = 'children', state } = options
-  let status
-  ctx = Object.assign(
-    {
-      index: 0,
-      depth: 1,
-      parent: null,
-      parentCtx: null
-    },
-    ctx,
-    {
-      node,
-      state,
-      get status() {
-        return status
+  ctx = new Context(
+    Object.assign(
+      {
+        index: 0,
+        depth: 1,
+        status: null,
+        parent: null,
+        parentCtx: null
       },
-      skip: () => {
-        status = 'skip'
-      },
-      break: () => {
-        status = 'break'
-      },
-      insertByIndex(index, nodes) {
-        if (ctx.parent) {
-          ctx.parent[path].splice(index, 0, ...nodes)
-          return true
-        }
-      },
-      insertBefore(...nodes) {
-        return this.insertByIndex(ctx.index, nodes)
-      },
-      insert(...nodes) {
-        return this.insertByIndex(ctx.index + 1, nodes)
-      },
-      remove() {
-        if (ctx.parent) {
-          if (typeof ctx.parent[path].splice === 'function') {
-            return ctx.parent[path].splice(ctx.index, 1)
-          }
-          return delete ctx.parent[path]
-        }
-      },
-      replace(node) {
-        if (this.remove()) {
-          if (ctx.parent[path] && typeof ctx.parent[path].splice === 'function') {
-            return this.insertBefore(node)
-          }
-
-          ctx.parent[path] = node
-          return true
-        }
-      },
-      get paths() {
-        return getPaths(ctx)
-      },
-      get parents() {
-        return getParents(ctx)
+      ctx,
+      {
+        node
       }
-    }
+    ),
+    options
   )
   if (!node) {
     return
   }
 
-  preWalk(node, ctx)
-  if (status) {
-    return status
+  if (!ctx.paths) {
+    ctx.paths = getPaths(ctx)
+  } else {
+    ctx.paths = ctx.paths.concat(ctx.index)
   }
 
-  const nodes = [].slice.apply(castArray(node[path] || []))
+  if (!ctx.parents) {
+    ctx.parents = getParents(ctx)
+  } else {
+    ctx.parents = ctx.parents.concat(ctx.parent)
+  }
+
+  // ctx.paths = ctx.paths || getPaths(ctx)
+  preWalk(node, ctx)
+  if (ctx.status) {
+    return ctx.status
+  }
+
+  const nodes = [].slice.apply(castArray(ctx.children || []))
   let i = 0
   while (nodes.length) {
     const childNode = nodes.shift()
@@ -126,8 +97,8 @@ function walkNodeInner(node, preWalk, postWalk, ctx, options = {}) {
   }
 
   postWalk(node, ctx)
-  if (status) {
-    return status
+  if (ctx.status) {
+    return ctx.status
   }
 }
 
@@ -142,3 +113,8 @@ function walkTree(node, preWalk, postWalk, options) {
 }
 
 module.exports = walkTree
+module.exports.default = walkTree
+module.exports.walkParentCtx = walkParentCtx
+module.exports.Context = Context
+module.exports.getParents = getParents
+module.exports.getPaths = getPaths
