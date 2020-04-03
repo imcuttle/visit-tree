@@ -1,3 +1,11 @@
+<a name="2.1.1"></a>
+
+## [2.1.1](https://github.com/imcuttle/visit-tree/compare/v2.1.0...v2.1.1) (2020-04-03)
+
+### Bug Fixes
+
+- html-collection is not iterable in edge ([4483d25](https://github.com/imcuttle/visit-tree/commit/4483d25))
+
 <a name="2.1.0"></a>
 
 # [2.1.0](https://github.com/imcuttle/visit-tree/compare/v2.0.1...v2.1.0) (2019-12-08)
