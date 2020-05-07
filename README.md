@@ -62,6 +62,14 @@ Assign children's path.
 
 It's same reference to `options.state`.
 
+#### `node`
+
+The current node.
+
+#### `children`
+
+The current node's children.
+
 #### `index`
 
 Get the index of the current node.
@@ -135,10 +143,6 @@ Get the paths(index list) of the current node.
 #### `parents`
 
 Get the parents(backward) of the current node.
-
-#### `node`
-
-Get the current node.
 
 #### `parentCtx`
 
