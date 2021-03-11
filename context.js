@@ -15,7 +15,10 @@ module.exports = class VisitContext {
         status: null,
         parentCtx: null
       },
-      props
+      props,
+      {
+        state: {}
+      }
     )
   }
 
@@ -27,10 +30,10 @@ module.exports = class VisitContext {
     return this.node && this.node[this.opts.path]
   }
 
-  get state() {
+  get globalState() {
     return this.opts.state
   }
-  set state(val) {
+  set globalState(val) {
     this.opts.state = val
   }
 

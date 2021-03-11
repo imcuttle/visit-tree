@@ -133,7 +133,7 @@ Array [
           if (node.key === key) {
             ctx[method]()
           } else {
-            ctx.state.push(node.key)
+            ctx.globalState.push(node.key)
           }
         },
         {
@@ -295,6 +295,40 @@ Object {
   "key": "root",
 }
 `)
+  })
+
+  it('should ctx.state is not inheritable & ctx.globalState is inheritable', function() {
+    const tree = {
+      key: 'root',
+      children: {
+        key: 'a',
+        children: [
+          {
+            key: 'b'
+          }
+        ]
+      }
+    }
+
+    const state = {
+      v: 1,
+      ctxList: []
+    }
+
+    walk(
+      tree,
+      (node, ctx) => {
+        ctx.state[ctx.globalState.v++] = node.key
+        ctx.globalState.ctxList.push(ctx)
+      },
+      {
+        order: 'post',
+        state
+      }
+    )
+
+    expect(state.v).toBe(4)
+    expect(state.ctxList.map(ctx => ctx.state)).toEqual([{ '1': 'root' }, { '2': 'a' }, { '3': 'b' }])
   })
 
   it('should walk insert well - 2', function() {
