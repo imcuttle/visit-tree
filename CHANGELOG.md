@@ -1,3 +1,11 @@
+<a name="3.0.0"></a>
+
+# [3.0.0](https://github.com/imcuttle/visit-tree/compare/v2.1.1...v3.0.0) (2021-03-11)
+
+### Features
+
+- add state & rename ctx.state to globalState ([3a7ff47](https://github.com/imcuttle/visit-tree/commit/3a7ff47))
+
 <a name="2.1.1"></a>
 
 ## [2.1.1](https://github.com/imcuttle/visit-tree/compare/v2.1.0...v2.1.1) (2020-04-03)
