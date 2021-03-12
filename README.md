@@ -22,7 +22,10 @@ yarn add @moyuyc/visit-tree
 ```javascript
 const visitTree = require('@moyuyc/visit-tree')
 
-visitTree(
+// or sync
+const { sync } = require('@moyuyc/visit-tree')
+
+await visitTree(
   {
     value: 'root',
     children: [
@@ -31,16 +34,16 @@ visitTree(
       }
     ]
   },
-  (node, ctx) => {},
+  async (node, ctx) => {},
   {}
 )
 ```
 
 ## API
 
-### **`visitTree(tree, preWalk: (node, ctx: Context) => void, options: Options)`**
+### **`visitTree(tree, preWalk: (node, ctx: Context) => void, options: Options): Promise<void>`**
 
-### **`visitTree(tree, preWalk: (node, ctx: Context) => void, postWalk: (node, ctx: Context) => void, options: Options)`**
+### **`visitTree(tree, preWalk: (node, ctx: Context) => void, postWalk: (node, ctx: Context) => void, options: Options): Promise<void>`**
 
 ### Options
 
