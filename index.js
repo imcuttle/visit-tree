@@ -52,7 +52,7 @@ function walkNodeInner(node, preWalk, postWalk, ctx, options = {}) {
     options
   )
   if (!node) {
-    return
+    return { ctx, status: null }
   }
 
   if (!ctx.paths) {
@@ -70,14 +70,14 @@ function walkNodeInner(node, preWalk, postWalk, ctx, options = {}) {
   // ctx.paths = ctx.paths || getPaths(ctx)
   preWalk(node, ctx)
   if (ctx.status) {
-    return ctx.status
+    return { ctx, status: ctx.status }
   }
 
   const nodes = [].slice.apply(castArray(ctx.children || []))
   let i = 0
   while (nodes.length) {
     const childNode = nodes.shift()
-    let returnStatus = walkNodeInner(
+    let result = walkNodeInner(
       childNode,
       preWalk,
       postWalk,
@@ -90,16 +90,19 @@ function walkNodeInner(node, preWalk, postWalk, ctx, options = {}) {
       },
       options
     )
-    if ('break' === returnStatus) {
-      return returnStatus
+    if ('break' === result.status) {
+      return { ctx, status: result.status }
     }
+    // adjust
+    i = result.ctx.index
     i++
   }
 
   postWalk(node, ctx)
   if (ctx.status) {
-    return ctx.status
+    return { ctx, status: ctx.status }
   }
+  return { ctx, status: null }
 }
 
 const noop = () => {}

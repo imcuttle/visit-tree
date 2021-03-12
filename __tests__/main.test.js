@@ -33,6 +33,165 @@ describe('walkTree', function() {
     expect(pathsList).toEqual([[], [0], [0, 0]])
   })
 
+  it('should ctx.remove works', function() {
+    const node = {
+      key: 'root',
+      children: [
+        {
+          key: 'a',
+          children: [
+            {
+              remove: true,
+              key: 'b'
+            },
+            {
+              remove: true,
+              key: 'b'
+            }
+          ]
+        }
+      ]
+    }
+    walk(node, null, (node, ctx) => {
+      if (node.remove) {
+        ctx.remove()
+      }
+    })
+
+    expect(node).toMatchInlineSnapshot(`
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "key": "a",
+    },
+  ],
+  "key": "root",
+}
+`)
+  })
+  it('should ctx.remove works when post walk', function() {
+    const node = {
+      key: 'root',
+      children: [
+        {
+          key: 'a',
+          children: [
+            {
+              remove: true,
+              key: 'b'
+            },
+            {
+              remove: true,
+              key: 'b'
+            }
+          ]
+        }
+      ]
+    }
+    walk(node, null, (node, ctx) => {
+      if (node.remove) {
+        ctx.remove()
+      }
+    })
+
+    expect(node).toMatchInlineSnapshot(`
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "key": "a",
+    },
+  ],
+  "key": "root",
+}
+`)
+  })
+
+  it('should ctx.remove works when pre walk', function() {
+    const node = {
+      key: 'root',
+      children: [
+        {
+          key: 'a',
+          children: [
+            {
+              remove: true,
+              key: 'b'
+            },
+            {
+              remove: true,
+              key: 'b'
+            }
+          ]
+        }
+      ]
+    }
+    walk(node, (node, ctx) => {
+      if (node.remove) {
+        ctx.remove()
+      }
+    })
+
+    expect(node).toMatchInlineSnapshot(`
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "key": "a",
+    },
+  ],
+  "key": "root",
+}
+`)
+  })
+  it('should ctx.remove works when pre walk2', function() {
+    const node = {
+      key: 'root',
+      children: [
+        {
+          key: '1'
+        },
+        {
+          key: 'a',
+          remove: true,
+          children: [
+            {
+              remove: true,
+              key: 'b'
+            },
+            {
+              remove: true,
+              key: 'b'
+            }
+          ]
+        },
+        {
+          key: '2'
+        }
+      ]
+    }
+    walk(node, (node, ctx) => {
+      if (node.remove) {
+        ctx.remove()
+      }
+    })
+
+    expect(node).toMatchInlineSnapshot(`
+Object {
+  "children": Array [
+    Object {
+      "key": "1",
+    },
+    Object {
+      "key": "2",
+    },
+  ],
+  "key": "root",
+}
+`)
+  })
+
   it('should walk post well', function() {
     const list = []
     const pathsList = []

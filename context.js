@@ -57,14 +57,21 @@ module.exports = class VisitContext {
   }
   remove() {
     if (this.parent) {
+      let removed
       if (typeof this.parent[this.opts.path].splice === 'function') {
-        return this.parent[this.opts.path].splice(this.index, 1)
+        removed = !!this.parent[this.opts.path].splice(this.index, 1).length
+      } else {
+        removed = delete this.parent[this.opts.path]
       }
-      return delete this.parent[this.opts.path]
+      if (removed) {
+        this.index--
+      }
+      return removed
     }
   }
   replace(node) {
     if (this.remove()) {
+      this.index++
       if (this.parent[this.opts.path] && typeof this.parent[this.opts.path].splice === 'function') {
         return this.insertBefore(node)
       }

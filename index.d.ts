@@ -39,6 +39,6 @@ declare function visitTree<T>(
   options?: visitTree.IOptions
 ): void
 
-declare function visitTree<T>(node: any, preVisit: visitTree.IVisit<T>, options?: visitTree.IOptions): void
+declare function visitTree<T>(node: T, preVisit: visitTree.IVisit<T>, options?: visitTree.IOptions): void
 
 export = visitTree
