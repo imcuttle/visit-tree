@@ -1,3 +1,11 @@
+<a name="4.0.0"></a>
+
+# [4.0.0](https://github.com/imcuttle/visit-tree/compare/v3.0.1...v4.0.0) (2021-03-12)
+
+### Bug Fixes
+
+- support async ([98e07f4](https://github.com/imcuttle/visit-tree/commit/98e07f4)), closes [#11](https://github.com/imcuttle/visit-tree/issues/11)
+
 <a name="3.0.1"></a>
 
 ## [3.0.1](https://github.com/imcuttle/visit-tree/compare/v3.0.0...v3.0.1) (2021-03-12)
