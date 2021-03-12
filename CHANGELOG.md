@@ -1,3 +1,11 @@
+<a name="3.0.1"></a>
+
+## [3.0.1](https://github.com/imcuttle/visit-tree/compare/v3.0.0...v3.0.1) (2021-03-12)
+
+### Bug Fixes
+
+- remove ([567ae2a](https://github.com/imcuttle/visit-tree/commit/567ae2a)), closes [#10](https://github.com/imcuttle/visit-tree/issues/10)
+
 <a name="3.0.0"></a>
 
 # [3.0.0](https://github.com/imcuttle/visit-tree/compare/v2.1.1...v3.0.0) (2021-03-11)
