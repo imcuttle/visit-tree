@@ -24,6 +24,12 @@ declare function visitTree<T>(node: T, preVisit: visitTree.IVisit<T>, options?: 
 export default visitTree
 
 export function sync<T>(node: T, preVisit: visitTree.IVisit<T>, options?: visitTree.IOptions): void
+export function sync<T>(
+  node: T,
+  preVisit: visitTree.IVisit<T>,
+  postVisit?: visitTree.IVisit<T>,
+  options?: visitTree.IOptions
+): void
 
 export function walkParentCtx<T>(ctx: Context<T>, walk: (ctx: Context<T>) => void): void
 export function getParents<T>(ctx: Context<T>): T[]
