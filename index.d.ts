@@ -4,38 +4,42 @@
  */
 
 declare namespace visitTree {
-  export interface IOptions {
+  export interface IOptions<S = any> {
     path?: string
-    state?: any
+    state?: S
   }
 
-  export type IVisit<T> = (node: T, ctx: Context<T>) => void
+  export type IVisit<T, S = any> = (node: T, ctx: Context<T, S>) => void
 }
 
-declare function visitTree<T>(
-  node: any,
-  preVisit: visitTree.IVisit<T>,
-  postVisit?: visitTree.IVisit<T>,
-  options?: visitTree.IOptions
+declare function visitTree<T, S = any>(
+  node: T,
+  preVisit: visitTree.IVisit<T, S>,
+  postVisit?: visitTree.IVisit<T, S>,
+  options?: visitTree.IOptions<S>
 ): void
 
-declare function visitTree<T>(node: T, preVisit: visitTree.IVisit<T>, options?: visitTree.IOptions): Promise<void>
+declare function visitTree<T, S>(
+  node: T,
+  preVisit: visitTree.IVisit<T, S>,
+  options?: visitTree.IOptions<S>
+): Promise<void>
 
 export default visitTree
 
-export function sync<T>(node: T, preVisit: visitTree.IVisit<T>, options?: visitTree.IOptions): void
-export function sync<T>(
+export function sync<T, S>(node: T, preVisit: visitTree.IVisit<T, S>, options?: visitTree.IOptions<S>): void
+export function sync<T, S>(
   node: T,
-  preVisit: visitTree.IVisit<T>,
-  postVisit?: visitTree.IVisit<T>,
-  options?: visitTree.IOptions
+  preVisit: visitTree.IVisit<T, S>,
+  postVisit?: visitTree.IVisit<T, S>,
+  options?: visitTree.IOptions<S>
 ): void
 
 export function walkParentCtx<T>(ctx: Context<T>, walk: (ctx: Context<T>) => void): void
 export function getParents<T>(ctx: Context<T>): T[]
 export function getPaths(ctx: Context<any>): number[]
 
-export class Context<T> {
+export class Context<T, S = any> {
   constructor(props?: any, opts?: any)
   public opts: any
 
@@ -47,6 +51,7 @@ export class Context<T> {
   readonly children: T[]
   paths: number[]
   state: any
+  globalState: S
   node: T
   readonly status: 'skip' | 'break' | null
   skip: () => void
