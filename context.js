@@ -43,6 +43,9 @@ module.exports = class VisitContext {
   break() {
     this.status = 'break'
   }
+  continue() {
+    this.status = null
+  }
   insertByIndex(index, nodes) {
     if (this.parent) {
       this.parent[this.opts.path].splice(index, 0, ...nodes)

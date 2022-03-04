@@ -56,6 +56,7 @@ export class Context<T, S = any> {
   readonly status: 'skip' | 'break' | null
   skip: () => void
   break: () => void
+  continue: () => void
   insertByIndex: (index: number, nodes: T[]) => boolean
   insertBefore: (...nodes: T[]) => boolean
   insert: (...nodes: T[]) => boolean
