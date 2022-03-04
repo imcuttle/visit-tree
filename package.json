@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "4.0.2",
+  "version": "4.0.3",
   "main": "index.js",
   "description": "Visit tree by pre or post DFS",
   "author": "imcuttle <moyuyc95@gmail.com>",
