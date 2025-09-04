@@ -145,10 +145,13 @@ function walkNodeInnerSync(node, preWalk, postWalk, ctx, options = {}) {
     return { ctx, status: ctx.status }
   }
 
-  const nodes = [].slice.apply(castArray(ctx.children || []))
+  let nodes = [].slice.apply(castArray(ctx.children || []))
   let i = 0
-  while (nodes.length) {
-    const childNode = nodes.shift()
+  while (((nodes = [].slice.apply(castArray(ctx.children || []))), i < nodes.length)) {
+    const childNode = nodes[i]
+    if (!childNode) {
+      break
+    }
     let result = walkNodeInnerSync(
       childNode,
       preWalk,
@@ -197,11 +200,9 @@ function walkTreeSync(node, preWalk, postWalk, options) {
 }
 
 module.exports = walkTree
-module.exports.default = walkTree
 
-module.exports.sync = walkTreeSync
-
-module.exports.walkParentCtx = walkParentCtx
-module.exports.Context = Context
-module.exports.getParents = getParents
-module.exports.getPaths = getPaths
+walkTree.sync = walkTreeSync
+walkTree.walkParentCtx = walkParentCtx
+walkTree.Context = Context
+walkTree.getParents = getParents
+walkTree.getPaths = getPaths

@@ -1,4 +1,4 @@
-module.exports = class VisitContext {
+class VisitContext {
   constructor(props, opts) {
     this.opts = Object.assign(
       {
@@ -84,3 +84,5 @@ module.exports = class VisitContext {
     }
   }
 }
+
+module.exports = VisitContext

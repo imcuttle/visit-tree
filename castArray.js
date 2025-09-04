@@ -8,7 +8,7 @@ const isIterable = require('is-iterable')
 
 const collListTypes = [global.HTMLCollection, global.NodeList].filter(x => typeof x === 'function')
 
-module.exports = function(input) {
+module.exports = function castArray(input) {
   if (input && typeof input.slice === 'function') {
     return input
   }

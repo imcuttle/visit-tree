@@ -6,7 +6,7 @@
  */
 
 const { sync: walk } = require('../index')
-const walkAsync = require('../index')
+// const walkAsync from '../index.js'
 
 describe('walkTree', function() {
   it('should walk pre well', function() {
